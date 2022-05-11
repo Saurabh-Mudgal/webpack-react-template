@@ -1,3 +1,6 @@
+import "./scss/main.css";
+
+
 const elem = document.querySelector('.root');
 
 elem.innerText = 'Hello World. JavaScript is working!';
