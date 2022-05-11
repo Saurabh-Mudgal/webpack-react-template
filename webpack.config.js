@@ -13,6 +13,11 @@ module.exports = {
             //     use: ['style-loader', 'css-loader', 'sass-loader']
             // },
             {
+                test: /\.(.js|jsx)$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+            },
+            {
                 // for linking assets like images correctly to the html.
                 test: /\.html$/,
                 use: ["html-loader"]
