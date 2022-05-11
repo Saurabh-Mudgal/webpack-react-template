@@ -1,4 +1,4 @@
-import "./scss/main.css";
+import "./scss/main.scss";
 
 
 const elem = document.querySelector('.root');
