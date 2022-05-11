@@ -1,35 +1,44 @@
 const path = require('path')
-const HTMLWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-    mode: "development",
-    devtool: "cheap-module-source-map",
     entry: {
         main: './src/index.js'
-    },
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'scripts/[name].[contenthash].bundle.js'
     },
     module: {
         rules: [
             {
+                // For transpiling scss to css and correctly loading it to the DOM.
                 test: /\.scss$/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
+            },
+            {
+                // for linking assets like images correctly to the html.
+                test: /\.html$/,
+                use: ["html-loader"]
+            },
+            {
+                // For loading images/ files. Using webpack asset module.
+                oneOf: [
+                    {
+                        test: /\.svg$/,
+                        type: 'asset/inline',
+                        resourceQuery: /inline/,
+                        generator: {
+                            dataUrl: content => {
+                              content = content.toString();
+                              return svgToMiniDataURI(content);
+                            }
+                        }
+                    },
+                    {
+                        test: /\.(svg|png|jpg|gif|webp)$/,
+                        type: 'asset/resource',
+                        generator: {
+                            filename: 'imgs/[name].[hash:8].[ext]',
+                        }
+                    }
+                ]
             }
         ]
-    },
-    plugins: [
-        new HTMLWebpackPlugin({
-            template: './public/template.html',
-            minify: {
-                removeAttributeQuotes: true,
-                collapseWhitespace: true,
-                removeComments: true
-            },
-            favicon: "./public/favicon.ico",
-            filename: 'index.html'
-
-        })
-    ]
+    }
 }
