@@ -2,15 +2,16 @@ const path = require('path')
 
 module.exports = {
     entry: {
-        main: './src/index.js'
+        main: './src/index.js',
+        vendor: "./src/vendor.js"
     },
     module: {
         rules: [
-            {
-                // For transpiling scss to css and correctly loading it to the DOM.
-                test: /\.scss$/,
-                use: ['style-loader', 'css-loader', 'sass-loader']
-            },
+            // {
+            //     // For transpiling scss to css and correctly loading it to the DOM. Moved to dev, substituted bu MinifyCSS in prod.
+            //     test: /\.scss$/,
+            //     use: ['style-loader', 'css-loader', 'sass-loader']
+            // },
             {
                 // for linking assets like images correctly to the html.
                 test: /\.html$/,
