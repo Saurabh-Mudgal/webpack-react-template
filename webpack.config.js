@@ -1,4 +1,5 @@
 const path = require('path')
+const HTMLWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     mode: "development",
@@ -8,7 +9,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].bundle.js'
+        filename: 'scripts/[name].[contenthash].bundle.js'
     },
     module: {
         rules: [
@@ -17,5 +18,18 @@ module.exports = {
                 use: ['style-loader', 'css-loader', 'sass-loader']
             }
         ]
-    }
+    },
+    plugins: [
+        new HTMLWebpackPlugin({
+            template: './public/template.html',
+            minify: {
+                removeAttributeQuotes: true,
+                collapseWhitespace: true,
+                removeComments: true
+            },
+            favicon: "./public/favicon.ico",
+            filename: 'index.html'
+
+        })
+    ]
 }
