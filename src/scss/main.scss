@@ -1,7 +1,3 @@
-body {
-    color: red;
-}
-
-.root {
-    color: blue;
-}
+$primary: teal;
+$danger: #038100;
+@import "~bootstrap/scss/bootstrap";
